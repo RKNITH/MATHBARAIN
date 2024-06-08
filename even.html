@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Even Numbers Information</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 24px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .info {
+            font-size: 16px;
+        }
+
+        ul {
+            list-style-type: disc;
+            margin-left: 20px;
+        }
+
+        li {
+            margin-bottom: 5px;
+        }
+
+        .form-container {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        input[type="number"] {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-right: 10px;
+        }
+
+        .generate-btn {
+            padding: 8px 16px;
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .generate-btn:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Information About Even Numbers</h1>
+        <div class="info">
+            <p>Even numbers are integers that can be evenly divided by 2. Examples of even numbers include 2, 4, 6, 8,
+                10, etc.</p>
+            <p>Properties of even numbers:</p>
+            <ul>
+                <li>They are divisible by 2.</li>
+                <li>Their units digit is always one of the digits: 0, 2, 4, 6, or 8.</li>
+                <li>The sum of two even numbers is always an even number.</li>
+                <li>The product of two even numbers is always an even number.</li>
+            </ul>
+        </div>
+        <div class="form-container">
+            <h2>Generate even numbers up to n</h2>
+            <input type="number" id="numberInput" placeholder="Enter a number">
+            <button class="generate-btn" onclick="generateEvenNumbers()">Generate</button>
+        </div>
+        <div id="evenNumbersOutput" class="info"></div>
+    </div>
+
+    <script>
+        function generateEvenNumbers() {
+            const numberInput = document.getElementById("numberInput");
+            const evenNumbersOutput = document.getElementById("evenNumbersOutput");
+            evenNumbersOutput.innerHTML = "";
+
+            const n = parseInt(numberInput.value);
+            if (isNaN(n) || n <= 0) {
+                evenNumbersOutput.textContent = "Please enter a valid positive number.";
+                return;
+            }
+
+            let evenNumbers = [];
+            for (let i = 2; i <= n; i += 2) {
+                evenNumbers.push(i);
+            }
+
+            evenNumbersOutput.textContent = `Even numbers up to ${n}: ${evenNumbers.join(", ")}`;
+        }
+    </script>
+</body>
+
+</html>

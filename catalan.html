@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catalan Numbers Information</title>
+    <style>
+        /* Add your CSS styling here */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 24px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .info {
+            font-size: 16px;
+        }
+
+        ul {
+            list-style-type: disc;
+            margin-left: 20px;
+        }
+
+        li {
+            margin-bottom: 5px;
+        }
+
+        .form-container {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        input[type="number"] {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-right: 10px;
+        }
+
+        .generate-btn {
+            padding: 8px 16px;
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .generate-btn:hover {
+            background-color: #45a049;
+        }
+
+        .wiki-link {
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Information About Catalan Numbers</h1>
+        <div class="info">
+            <p>Catalan numbers are a sequence of natural numbers that have various applications in combinatorial
+                mathematics, particularly in the context of counting various combinatorial objects.</p>
+            <p>Properties of Catalan numbers:</p>
+            <ul>
+                <li>They appear in various counting problems, such as counting the number of ways to form different
+                    types of parentheses sequences.</li>
+                <li>They satisfy a recursive formula, making them useful in dynamic programming algorithms.</li>
+            </ul>
+        </div>
+        <div class="form-container">
+            <h2>Generate first n Catalan numbers</h2>
+            <input type="number" id="numberInput" placeholder="Enter the number of Catalan numbers">
+            <button class="generate-btn" onclick="generateCatalanNumbers()">Generate</button>
+        </div>
+        <div id="catalanOutput" class="info"></div>
+        <div class="wiki-link">
+            <p>Learn more about Catalan numbers on <a href="https://en.wikipedia.org/wiki/Catalan_number"
+                    target="_blank">Wikipedia</a>.</p>
+        </div>
+    </div>
+
+    <script>
+        function generateCatalanNumbers() {
+            const numberInput = document.getElementById("numberInput");
+            const catalanOutput = document.getElementById("catalanOutput");
+            catalanOutput.innerHTML = "";
+
+            let n = parseInt(numberInput.value);
+            if (isNaN(n) || n <= 0) {
+                catalanOutput.textContent = "Please enter a valid positive number.";
+                return;
+            }
+
+            let catalanNumbers = [];
+            for (let i = 0; i < n; i++) {
+                catalanNumbers.push(catalan(i));
+            }
+
+            catalanOutput.textContent = `First ${n} Catalan numbers: ${catalanNumbers.join(", ")}`;
+        }
+
+        function catalan(n) {
+            if (n <= 1) return 1;
+
+            let result = 0;
+            for (let i = 0; i < n; i++) {
+                result += catalan(i) * catalan(n - i - 1);
+            }
+            return result;
+        }
+    </script>
+</body>
+
+</html>

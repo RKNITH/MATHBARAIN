@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fibonacci Numbers Information</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 24px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .info {
+            font-size: 16px;
+        }
+
+        ul {
+            list-style-type: disc;
+            margin-left: 20px;
+        }
+
+        li {
+            margin-bottom: 5px;
+        }
+
+        .form-container {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        input[type="number"] {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-right: 10px;
+        }
+
+        .generate-btn {
+            padding: 8px 16px;
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .generate-btn:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Information About Fibonacci Numbers</h1>
+        <div class="info">
+            <p>The Fibonacci sequence is a series of numbers where each number is the sum of the two preceding ones,
+                usually starting with 0 and 1. The sequence is named after the Italian mathematician Fibonacci.</p>
+            <p>Properties of Fibonacci numbers:</p>
+            <ul>
+                <li>The sequence starts with 0 and 1.</li>
+                <li>Each subsequent number is the sum of the previous two.</li>
+                <li>Examples of the sequence: 0, 1, 1, 2, 3, 5, 8, 13, 21, etc.</li>
+            </ul>
+        </div>
+        <div class="form-container">
+            <h2>Generate n Fibonacci numbers </h2>
+            <input type="number" id="numberInput" placeholder="Enter a number">
+            <button class="generate-btn" onclick="generateFibonacciNumbers()">Generate</button>
+        </div>
+        <div id="fibonacciNumbersOutput" class="info"></div>
+    </div>
+
+    <script>
+        function generateFibonacciNumbers() {
+            const numberInput = document.getElementById("numberInput");
+            const fibonacciNumbersOutput = document.getElementById("fibonacciNumbersOutput");
+            fibonacciNumbersOutput.innerHTML = "";
+
+            const n = parseInt(numberInput.value);
+            if (isNaN(n) || n <= 0) {
+                fibonacciNumbersOutput.textContent = "Please enter a valid positive number.";
+                return;
+            }
+
+            let fibonacciNumbers = [0, 1];
+            for (let i = 2; i < n; i++) {
+                const nextNumber = fibonacciNumbers[i - 1] + fibonacciNumbers[i - 2];
+                fibonacciNumbers.push(nextNumber);
+            }
+
+            fibonacciNumbersOutput.textContent = `Fibonacci numbers up to ${n}: ${fibonacciNumbers.join(", ")}`;
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Composite Numbers Information</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 24px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .info {
+            font-size: 16px;
+        }
+
+        ul {
+            list-style-type: disc;
+            margin-left: 20px;
+        }
+
+        li {
+            margin-bottom: 5px;
+        }
+
+        .form-container {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        input[type="number"] {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-right: 10px;
+        }
+
+        .generate-btn {
+            padding: 8px 16px;
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .generate-btn:hover {
+            background-color: #45a049;
+        }
+
+        .wiki-link {
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Information About Composite Numbers</h1>
+        <div class="info">
+            <p>Composite numbers are positive integers that have at least one positive divisor other than one or itself.
+                In other words, a composite number is any positive integer greater than one that is not a prime number.
+            </p>
+            <p>Properties of composite numbers:</p>
+            <ul>
+                <li>They have more than two factors.</li>
+                <li>Examples of composite numbers include 4, 6, 8, 9, 10, 12, etc.</li>
+            </ul>
+        </div>
+        <div class="form-container">
+            <h2>Generate composite numbers up to n</h2>
+            <input type="number" id="numberInput" placeholder="Enter a number">
+            <button class="generate-btn" onclick="generateCompositeNumbers()">Generate</button>
+        </div>
+        <div id="compositeOutput" class="info"></div>
+        <div class="wiki-link">
+            <p>Learn more about composite numbers on <a href="https://en.wikipedia.org/wiki/Composite_number"
+                    target="_blank">Wikipedia</a>.</p>
+        </div>
+    </div>
+
+    <script>
+        function generateCompositeNumbers() {
+            const numberInput = document.getElementById("numberInput");
+            const compositeOutput = document.getElementById("compositeOutput");
+            compositeOutput.innerHTML = "";
+
+            const n = parseInt(numberInput.value);
+            if (isNaN(n) || n <= 0) {
+                compositeOutput.textContent = "Please enter a valid positive number.";
+                return;
+            }
+
+            let compositeNumbers = [];
+            for (let i = 4; i <= n; i++) {
+                if (!isPrime(i)) {
+                    compositeNumbers.push(i);
+                }
+            }
+
+            compositeOutput.textContent = `Composite numbers up to ${n}: ${compositeNumbers.join(", ")}`;
+        }
+
+        function isPrime(num) {
+            if (num <= 1) return false;
+            for (let i = 2; i <= Math.sqrt(num); i++) {
+                if (num % i === 0) return false;
+            }
+            return true;
+        }
+    </script>
+</body>
+
+</html>

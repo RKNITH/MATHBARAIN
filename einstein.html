@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Einstein Numbers Information</title>
+    <style>
+        /* Add your CSS styling here */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 24px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .info {
+            font-size: 16px;
+        }
+
+        ul {
+            list-style-type: disc;
+            margin-left: 20px;
+        }
+
+        li {
+            margin-bottom: 5px;
+        }
+
+        .form-container {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        input[type="number"] {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-right: 10px;
+        }
+
+        .generate-btn {
+            padding: 8px 16px;
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .generate-btn:hover {
+            background-color: #45a049;
+        }
+
+        .wiki-link {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .einstein-equation {
+            margin-top: 20px;
+            text-align: center;
+            font-style: italic;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Information About Einstein Numbers</h1>
+        <div class="info">
+            <p>Einstein numbers are positive integers that satisfy the equation:</p>
+            <p class="einstein-equation">\( n = \frac{{\sigma(n)}}{2} - 1 \)</p>
+            <p>where \( \sigma(n) \) is the sum of the positive divisors of \( n \).</p>
+            <p>Properties of Einstein numbers:</p>
+            <ul>
+                <li>They are named after Albert Einstein, who investigated these numbers.</li>
+                <li>Examples include 5, 17, 71, 259, etc.</li>
+            </ul>
+        </div>
+        <div class="form-container">
+            <h2>Check if a number is Einstein</h2>
+            <input type="number" id="numberInput" placeholder="Enter a number">
+            <button class="generate-btn" onclick="checkEinstein()">Check</button>
+        </div>
+        <div id="einsteinOutput" class="info"></div>
+        <div class="form-container">
+            <h2>Find Einstein numbers up to n</h2>
+            <input type="number" id="einsteinLimitInput" placeholder="Enter a limit">
+            <button class="generate-btn" onclick="findEinsteinNumbers()">Find</button>
+        </div>
+        <div id="einsteinNumbersOutput" class="info"></div>
+        <div class="wiki-link">
+            <p>Learn more about Einstein numbers on <a href="https://en.wikipedia.org/wiki/Einstein_number"
+                    target="_blank">Wikipedia</a>.</p>
+        </div>
+    </div>
+
+    <script>
+        function sumOfDivisors(n) {
+            let sum = 1;
+            for (let i = 2; i * i <= n; i++) {
+                if (n % i === 0) {
+                    sum += i;
+                    if (i * i !== n) {
+                        sum += n / i;
+                    }
+                }
+            }
+            return sum;
+        }
+
+        function checkEinstein() {
+            const numberInput = document.getElementById("numberInput");
+            const einsteinOutput = document.getElementById("einsteinOutput");
+            einsteinOutput.innerHTML = "";
+
+            const n = parseInt(numberInput.value);
+            if (isNaN(n) || n <= 0) {
+                einsteinOutput.textContent = "Please enter a valid positive number.";
+                return;
+            }
+
+            const sigma_n = sumOfDivisors(n);
+            if (n === sigma_n / 2 - 1) {
+                einsteinOutput.textContent = `${n} is an Einstein number.`;
+            } else {
+                einsteinOutput.textContent = `${n} is not an Einstein number.`;
+            }
+        }
+
+        function findEinsteinNumbers() {
+            const einsteinLimitInput = document.getElementById("einsteinLimitInput");
+            const einsteinNumbersOutput = document.getElementById("einsteinNumbersOutput");
+            einsteinNumbersOutput.innerHTML = "";
+
+            let limit = parseInt(einsteinLimitInput.value);
+            if (isNaN(limit) || limit <= 0) {
+                einsteinNumbersOutput.textContent = "Please enter a valid positive limit.";
+                return;
+            }
+
+            let einsteinNumbers = [];
+            for (let n = 1; n <= limit; n++) {
+                const sigma_n = sumOfDivisors(n);
+                if (n === sigma_n / 2 - 1) {
+                    einsteinNumbers.push(n);
+                }
+            }
+
+            einsteinNumbersOutput.textContent = `Einstein numbers up to ${limit}: ${einsteinNumbers.join(", ")}`;
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfect Numbers Information</title>
+    <style>
+        /* Add your CSS styling here */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 24px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .info {
+            font-size: 16px;
+        }
+
+        ul {
+            list-style-type: disc;
+            margin-left: 20px;
+        }
+
+        li {
+            margin-bottom: 5px;
+        }
+
+        .form-container {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        input[type="number"] {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-right: 10px;
+        }
+
+        .generate-btn {
+            padding: 8px 16px;
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .generate-btn:hover {
+            background-color: #45a049;
+        }
+
+        .wiki-link {
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Information About Perfect Numbers</h1>
+        <div class="info">
+            <p>Perfect numbers are positive integers that are equal to the sum of their proper divisors (excluding the
+                number itself).</p>
+            <p>Properties of perfect numbers:</p>
+            <ul>
+                <li>Examples of perfect numbers include 6, 28, 496, and 8128.</li>
+                <li>They have been studied for centuries and have connections to various areas of mathematics.</li>
+            </ul>
+        </div>
+        <div class="form-container">
+            <h2>Generate first n perfect numbers</h2>
+            <input type="number" id="numberInput" placeholder="Enter the number of perfect numbers">
+            <button class="generate-btn" onclick="generatePerfectNumbers()">Generate</button>
+        </div>
+        <div id="perfectOutput" class="info"></div>
+        <div class="wiki-link">
+            <p>Learn more about Perfect numbers on <a href="https://en.wikipedia.org/wiki/Perfect_number"
+                    target="_blank">Wikipedia</a>.</p>
+        </div>
+    </div>
+
+    <script>
+        function isPrime(num) {
+            if (num <= 1) {
+                return false;
+            }
+            for (let i = 2; i <= Math.sqrt(num); i++) {
+                if (num % i === 0) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        function generatePerfectNumbers() {
+            const numberInput = document.getElementById("numberInput");
+            const perfectOutput = document.getElementById("perfectOutput");
+            perfectOutput.innerHTML = "";
+
+            let n = parseInt(numberInput.value);
+            if (isNaN(n) || n <= 0) {
+                perfectOutput.textContent = "Please enter a valid positive number.";
+                return;
+            }
+
+            let count = 0;
+            let perfectNumbers = [];
+            let p = 2;
+
+            while (count < n) {
+                if (isPrime((1 << p) - 1)) {
+                    perfectNumbers.push((1 << (p - 1)) * ((1 << p) - 1));
+                    count++;
+                }
+                p++;
+            }
+
+            perfectOutput.textContent = `First ${n} perfect numbers: ${perfectNumbers.join(", ")}`;
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Triangular Numbers Information</title>
+    <style>
+        /* Add your CSS styling here */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 24px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .info {
+            font-size: 16px;
+        }
+
+        ul {
+            list-style-type: disc;
+            margin-left: 20px;
+        }
+
+        li {
+            margin-bottom: 5px;
+        }
+
+        .form-container {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        input[type="number"] {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-right: 10px;
+        }
+
+        .generate-btn {
+            padding: 8px 16px;
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .generate-btn:hover {
+            background-color: #45a049;
+        }
+
+        .wiki-link {
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Information About Triangular Numbers</h1>
+        <div class="info">
+            <p>Triangular numbers are a sequence of numbers representing the number of dots in an equilateral triangle.
+            </p>
+            <p>Properties of triangular numbers:</p>
+            <ul>
+                <li>They can be visualized as dots arranged in the shape of an equilateral triangle.</li>
+                <li>They have applications in various mathematical and geometric concepts.</li>
+            </ul>
+        </div>
+        <div class="form-container">
+            <h2>Generate first n Triangular numbers</h2>
+            <input type="number" id="numberInput" placeholder="Enter the number of Triangular numbers">
+            <button class="generate-btn" onclick="generateTriangularNumbers()">Generate</button>
+        </div>
+        <div id="triangularNumbersOutput" class="info"></div>
+        <div class="wiki-link">
+            <p>Learn more about Triangular numbers on <a href="https://en.wikipedia.org/wiki/Triangular_number"
+                    target="_blank">Wikipedia</a>.</p>
+        </div>
+    </div>
+
+    <script>
+        function generateTriangularNumbers() {
+            const numberInput = document.getElementById("numberInput");
+            const triangularNumbersOutput = document.getElementById("triangularNumbersOutput");
+            triangularNumbersOutput.innerHTML = "";
+
+            let n = parseInt(numberInput.value);
+            if (isNaN(n) || n <= 0) {
+                triangularNumbersOutput.textContent = "Please enter a valid positive number.";
+                return;
+            }
+
+            let triangularNumbers = [];
+            for (let i = 1; i <= n; i++) {
+                triangularNumbers.push((i * (i + 1)) / 2);
+            }
+
+            triangularNumbersOutput.textContent = `First ${n} Triangular numbers: ${triangularNumbers.join(", ")}`;
+        }
+    </script>
+</body>
+
+</html>
