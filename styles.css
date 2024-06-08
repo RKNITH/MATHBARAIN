@@ -13,6 +13,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-top: 30px;
     flex-direction: column;
 }
 
@@ -94,9 +95,10 @@ body {
 }
 
 .startBtn {
-    width: 15%;
+    width: 45%;
     padding-block: 20px;
     text-align: center;
+    margin-bottom: 50px;
 }
 
 .timer {
@@ -176,6 +178,64 @@ body {
 
     .startBtn {
         width: 50%;
+        margin-bottom: 30px;
     }
 
+}
+
+/* ADDING CSS TO NUMBER-INFO */
+
+.number-info-container {
+    width: 80%;
+    max-width: 850px;
+    margin-top: 30px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    margin-left: auto;
+    margin-right: auto;
+    /* Center the container */
+}
+
+.number-info-container h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+.number-list {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    /* Arrange 5 items in one row */
+    gap: 20px;
+    justify-content: center;
+}
+
+.number-item {
+    padding: 10px 20px;
+    background-color: #5d9b63;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.number-item:hover {
+    background-color: #2e7d32;
+}
+
+.number-info {
+    margin-top: 20px;
+    font-size: 18px;
+}
+
+@media screen and (max-width: 900px) {
+    .number-info-container {
+        width: 90%;
+        /* Adjust the width for smaller screens */
+    }
+
+    .number-list {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+    }
 }

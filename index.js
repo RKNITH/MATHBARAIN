@@ -1,6 +1,5 @@
 const container = document.querySelector(".container");
 const questionBox = document.querySelector(".question");
-const choicesBox = document.querySelector(".choices");
 const nextBtn = document.querySelector(".nextBtn");
 const scoreCard = document.querySelector(".scoreCard");
 const alert = document.querySelector('.alert');
@@ -8,8 +7,8 @@ const startBtn = document.querySelector('.startBtn');
 const timer = document.querySelector('.timer');
 const skipBtn = document.querySelector('.skipBtn');
 const checkBtn = document.querySelector('.checkBtn');
-const submitBtn = document.querySelector('.submitBtn');
 const userAnswerInput = document.getElementById('userAnswer');
+const num = document.getElementById('num')
 
 let currentProblem = null;
 let score = 0;
@@ -25,73 +24,40 @@ const getRandomNumber = (min, max) => {
 
 // Function to generate a random math problem
 const generateProblem = () => {
-    const num1 = getRandomNumber(1, 10);
-    const num2 = getRandomNumber(1, 10);
-    const num3 = getRandomNumber(1, 10);
-    const operators = ['+', '-', 'x', '÷'];
+    const num = getRandomNumber(1, 20);
+    const operators = ['odd', 'even', 'prime'];
     const operator1 = operators[getRandomNumber(0, operators.length - 1)];
-    const operator2 = operators[getRandomNumber(0, operators.length - 1)];
     let question, answer;
 
-    // Randomly choose between a simple calculation problem and a BODMAS problem
-    if (getRandomNumber(0, 1) === 0) {
-        // Simple calculation problem
-        question = `${num1} ${operator1} ${num2}`;
-        answer = evaluateSimpleExpression(num1, num2, operator1);
-    } else {
-        // BODMAS problem
-        switch (getRandomNumber(1, 3)) {
-            case 1:
-                question = `(${num1} ${operator1} ${num2}) ${operator2} ${num3}`;
-                answer = evaluateExpression(num1, num2, num3, operator1, operator2);
-                break;
-            case 2:
-                question = `${num1} ${operator1} (${num2} ${operator2} ${num3})`;
-                answer = evaluateExpression(num1, num2, num3, operator2, operator1);
-                break;
-            case 3:
-                question = `${num1} ${operator1} ${num2} ${operator2} ${num3}`;
-                answer = evaluateExpression(num1, num2, num3, operator1, operator2);
-                break;
-        }
+    switch (operator1) {
+        case 'odd':
+            question = `Is ${num} odd?`;
+            answer = num % 2 !== 0;
+            break;
+        case 'even':
+            question = `Is ${num} even?`;
+            answer = num % 2 === 0;
+            break;
+        case 'prime':
+            question = `Is ${num} a prime number?`;
+            answer = isPrime(num);
+            break;
     }
 
     return { question, answer };
 };
 
-const evaluateSimpleExpression = (num1, num2, operator) => {
-    switch (operator) {
-        case '+':
-            return num1 + num2;
-        case '-':
-            return num1 - num2;
-        case 'x':
-            return num1 * num2;
-        case '÷':
-            return num1 / num2;
-        default:
-            return NaN; // Invalid operator
+// Function to check if a number is prime
+const isPrime = (num) => {
+    if (num <= 1) {
+        return false;
     }
-};
-
-const evaluateExpression = (num1, num2, num3, operator1, operator2) => {
-    const result1 = performOperation(num1, num2, operator1);
-    return performOperation(result1, num3, operator2);
-};
-
-const performOperation = (operand1, operand2, operator) => {
-    switch (operator) {
-        case '+':
-            return operand1 + operand2;
-        case '-':
-            return operand1 - operand2;
-        case 'x':
-            return operand1 * operand2;
-        case '÷':
-            return operand1 / operand2;
-        default:
-            return NaN; // Invalid operator
+    for (let i = 2; i <= Math.sqrt(num); i++) {
+        if (num % i === 0) {
+            return false;
+        }
     }
+    return true;
 };
 
 // Function to display a new math problem
@@ -102,13 +68,14 @@ const showProblem = () => {
 
 // Function to check the user's answer
 const checkAnswer = () => {
-    const userAnswer = parseFloat(userAnswerInput.value); // Parse input as float
-    const roundedAnswer = Math.round(userAnswer * 10) / 10; // Round to 1 decimal point
-    if (roundedAnswer === currentProblem.answer) {
+    const userAnswer = userAnswerInput.value.toLowerCase(); // Convert answer to lowercase for case-insensitivity
+    const correctAnswer = currentProblem.answer ? "yes" : "no"; // Convert boolean answer to "yes" or "no"
+
+    if (userAnswer === correctAnswer) {
         displayAlert("Correct answer!");
         score++;
     } else {
-        displayAlert(`Wrong answer! The correct answer is ${currentProblem.answer}`);
+        displayAlert("Wrong answer!");
     }
 
     totalQuestions++;
@@ -157,6 +124,7 @@ const startTimer = () => {
 startBtn.addEventListener('click', () => {
     startBtn.style.display = 'none';
     container.style.display = 'block';
+    num.style.display = 'none'
     showProblem();
     startTimer();
     updateScoreCard();
@@ -184,9 +152,89 @@ const skipQuestion = () => {
 // Add event listener for skip button click
 skipBtn.addEventListener('click', skipQuestion);
 
+// checkBtn.addEventListener('click', () => {
+//     if (!quizOver) {
+//         checkAnswer();
+//     }
+// });
 
-checkBtn.addEventListener('click', () => {
-    if (!quizOver) {
-        checkAnswer();
+//
+//
+// ADDING CODE TO SHOW INFO ABOUT NUMBER.
+// Event listener for number categories
+
+
+// Event listener for number categories
+num.addEventListener('click', (event) => {
+    const selectedNumber = event.target.textContent.trim();
+
+    // Check which number category is selected and open the corresponding HTML file
+    switch (selectedNumber) {
+        case 'Odd Numbers':
+            openNumberInfoPage('odd.html');
+            break;
+        case 'Even Numbers':
+            openNumberInfoPage('even.html');
+            break;
+        case 'Prime Numbers':
+            openNumberInfoPage('prime.html');
+            break;
+        case 'Fibonacci Numbers':
+            openNumberInfoPage('fibonacci.html');
+            break;
+        case 'Binary Numbers':
+            openNumberInfoPage('binary.html');
+            break;
+        case 'Bernoulli Numbers':
+            openNumberInfoPage('bernoulli.html');
+            break;
+        case 'Composite Numbers':
+            openNumberInfoPage('composite.html');
+            break;
+        case 'Factorial Numbers':
+            openNumberInfoPage('factorial.html');
+            break;
+        case 'Fermat Numbers':
+            openNumberInfoPage('fermat.html');
+            break;
+        case 'Perfect Numbers':
+            openNumberInfoPage('perfect.html');
+            break;
+        case 'Pythagorean Triples':
+            openNumberInfoPage('pythagorean.html');
+            break;
+        case 'Catalan Numbers':
+            openNumberInfoPage('catalan.html');
+            break;
+        case 'Cardinal Numbers':
+            openNumberInfoPage('cardinal.html');
+            break;
+        case 'Centered Polygonal Numbers':
+            openNumberInfoPage('centered_polygonal.html');
+            break;
+        case 'Einstein Numbers':
+            openNumberInfoPage('einstein.html');
+            break;
+        case 'Evil Numbers':
+            openNumberInfoPage('evil.html');
+            break;
+        case 'Gaussian Numbers':
+            openNumberInfoPage('gaussian.html');
+            break;
+        case 'Triangular Numbers':
+            openNumberInfoPage('triangular.html');
+            break;
+        case 'Transcendental Numbers':
+            openNumberInfoPage('transcendental.html');
+            break;
     }
 });
+
+// Function to open the HTML file with information about numbers
+const openNumberInfoPage = (filePath) => {
+    // Define the URL to the HTML file for the number category using the local server
+    const url = `http://localhost:8080/${filePath}`;
+
+    // Open the HTML file in a new tab
+    window.open(url, '_blank');
+};
